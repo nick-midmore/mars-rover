@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+namespace MarsRover.Input;
 public class InputParser
 {
     private Regex rgPosition = new(@"(?i)^\d+\s\d+\s[NESW]$");
@@ -11,7 +12,7 @@ public class InputParser
 
         else if (rgPlateau.IsMatch(input)) Plateau.InitSize(Convert.ToInt32(inputArr[0]), Convert.ToInt32(inputArr[2]));
 
-        else if (rgPosition.IsMatch(input)) ParsePosition(input); 
+        else if (rgPosition.IsMatch(input)) Plateau.Rovers.Add(ParsePosition(input)); 
 
         else if (rgMovement.IsMatch(input)) input.ToCharArray();
     }
@@ -26,11 +27,33 @@ public class InputParser
             "n" => Bearing.N,
             "e" => Bearing.E,
             "s" => Bearing.S,
-            "w" => Bearing.W
+            "w" => Bearing.W,
+            _ => Bearing.N
         };
 
         Position resultPosition = new(x, y, b);
         Rover rover = new(resultPosition);
         return rover;
+    }
+
+    public List<Instruction> ParseInstructions(string input) 
+    {
+        var instructions = new List<Instruction>();
+        foreach(var c in input.ToLower())
+        {
+            switch(c)
+            {
+                case 'l':
+                    instructions.Add(Instruction.L);
+                    break;
+                case 'r':
+                    instructions.Add(Instruction.R);
+                    break;
+                case 'm':
+                    instructions.Add(Instruction.M);
+                    break;
+            }
+        }
+        return instructions;
     }
 }
