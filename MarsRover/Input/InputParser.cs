@@ -18,8 +18,6 @@ public class InputParser
         else return ParseResult.INVALID;
     }
 
-    
-
     public void ParsePlateau(string input)
     {
         var inputArr = input.Split(' ');

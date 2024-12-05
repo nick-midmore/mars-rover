@@ -26,7 +26,7 @@ foreach(var s in input)
             break;
         case ParseResult.INSTRUCTION:
             r.TakeInstructions(p.ParseInstructions(s));
+            Console.WriteLine($"{r.Position.X} {r.Position.Y} {r.Position.Bearing.ToString()}");
             break;
     }
 }
-Console.WriteLine($"{r.Position.X} {r.Position.Y} {r.Position.Bearing.ToString()}");
