@@ -1,20 +1,21 @@
 using System.Text.RegularExpressions;
 namespace MarsRover.Input;
-public class InputParser
+public class InputParser  
 {
     private Regex rgPosition = new(@"(?i)^\d+\s\d+\s[NESW]$");
     private Regex rgPlateau = new(@"^\d+\s\d+$");
-    private Regex rgMovement = new(@"^[LMRlmr]*$");
-    public void ParseInput(string input)
+    private Regex rgInstruction = new(@"^[LMRlmr]*$");
+    public ParseResult ParseInput(string input)
     {
-        var inputArr = input.Split(' ');
-        if (String.IsNullOrEmpty(input)) Console.WriteLine("Input cannot be empty!");
+        if (String.IsNullOrEmpty(input)) return ParseResult.INVALID;
 
-        else if (rgPlateau.IsMatch(input)) Plateau.InitSize(Convert.ToInt32(inputArr[0]), Convert.ToInt32(inputArr[2]));
+        else if (rgPlateau.IsMatch(input)) return ParseResult.PLATEAU;
 
-        else if (rgPosition.IsMatch(input)) Plateau.Rovers.Add(ParsePosition(input)); 
+        else if (rgPosition.IsMatch(input)) return ParseResult.POSITION;
 
-        else if (rgMovement.IsMatch(input)) input.ToCharArray();
+        else if (rgInstruction.IsMatch(input)) return ParseResult.INSTRUCTION;
+
+        else return ParseResult.INVALID;
     }
 
     public Rover ParsePosition(string input)
