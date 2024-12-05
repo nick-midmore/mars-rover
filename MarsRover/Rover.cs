@@ -8,10 +8,12 @@ public class Rover
 
     public void TurnRight()
     {
-        Position.Bearing ++;
+        if(Position.Bearing == Bearing.W) Position.Bearing = Bearing.N;
+        else Position.Bearing ++;
     }
     public void TurnLeft()
     {
+        if(Position.Bearing == Bearing.N) Position.Bearing = Bearing.W;
         Position.Bearing --;
     }
     public void Move()
