@@ -6,6 +6,25 @@ public class Rover
         Position = position;
     }
 
+    public void TakeInstructions(List<Instruction> instructions)
+    {
+        foreach(var i in instructions)
+        {
+            switch (i)
+            {
+                case Instruction.L:
+                    TurnLeft();
+                    break;
+                case Instruction.R:
+                    TurnRight();
+                    break;
+                case Instruction.M:
+                    Move();
+                    break;
+            }
+        }
+    }
+
     public void TurnRight()
     {
         if(Position.Bearing == Bearing.W) Position.Bearing = Bearing.N;
@@ -14,7 +33,7 @@ public class Rover
     public void TurnLeft()
     {
         if(Position.Bearing == Bearing.N) Position.Bearing = Bearing.W;
-        Position.Bearing --;
+        else Position.Bearing --;
     }
     public void Move()
     {

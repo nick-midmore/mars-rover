@@ -19,7 +19,16 @@ public class InputParser
     }
 
     
-    public Rover ParsePosition(string input)
+
+    public void ParsePlateau(string input)
+    {
+        var inputArr = input.Split(' ');
+        int x = Convert.ToInt32(inputArr[0]);
+        int y = Convert.ToInt32(inputArr[1]);
+        Plateau.InitSize(x, y);
+    }
+
+    public Position ParsePosition(string input)
     {
         var inputArray = input.Split(' ');
         int x = Convert.ToInt32(inputArray[0]);
@@ -33,9 +42,7 @@ public class InputParser
             _ => Bearing.N
         };
 
-        Position resultPosition = new(x, y, b);
-        Rover rover = new(resultPosition);
-        return rover;
+        return new Position(x, y, b);
     }
 
     public List<Instruction> ParseInstructions(string input) 
