@@ -45,27 +45,35 @@ namespace MarsRoverTests
         }
 
         [Test]
-        public void PlateauInputTest()
+        public void PlateauValidInputTest()
         {
             var p = new InputParser();
 
             p.ParseInput("5 6").Should().Be(ParseResult.PLATEAU);
+            p.ParseInput("8 16").Should().Be(ParseResult.PLATEAU);
+            p.ParseInput("25 16").Should().Be(ParseResult.PLATEAU);
+
         }
 
         [Test]
-        public void PositionInputTest()
+        public void PositionValidInputTest()
         {
             var p = new InputParser();
 
             p.ParseInput("5 6 E").Should().Be(ParseResult.POSITION);
+            p.ParseInput("5 16 W").Should().Be(ParseResult.POSITION);
+            p.ParseInput("0 6 S").Should().Be(ParseResult.POSITION);
         }
 
         [Test]
-        public void InstructionInputTest()
+        public void InstructionValidInputTest()
         {
             var p = new InputParser();
 
             p.ParseInput("LMLRMMLMRLMRRMLR").Should().Be(ParseResult.INSTRUCTION);
+            p.ParseInput("LMRLMRLMRLRMLRM").Should().Be(ParseResult.INSTRUCTION);
+            p.ParseInput("RRRLRLRLRLMMMMLL").Should().Be(ParseResult.INSTRUCTION);
+            p.ParseInput("LLLLRRMRMRMMMMM").Should().Be(ParseResult.INSTRUCTION);
         }
     }
 }

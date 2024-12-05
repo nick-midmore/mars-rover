@@ -18,6 +18,7 @@ public class InputParser
         else return ParseResult.INVALID;
     }
 
+    
     public Rover ParsePosition(string input)
     {
         var inputArray = input.Split(' ');
