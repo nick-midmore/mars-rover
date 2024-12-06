@@ -10,23 +10,25 @@ string[] input = {
 
 var p = new InputParser();
 var r = new Rover(new Position(0, 0, Bearing.N));
+var parsers = new List<IParser>();
 
 foreach(var s in input)
 {
-    switch(p.ParseInput(s))
+    if(p.ParseInput(s) != null) parsers.Add(p.ParseInput(s));
+}
+
+foreach(var s in parsers)
+{
+    if(s is PlateauParser a)
     {
-        case ParseResult.INVALID:
-            Console.WriteLine("Invalid input");
-            break;
-        case ParseResult.PLATEAU:
-            p.ParsePlateau(s);
-            break;
-        case ParseResult.POSITION:
-            r.Position = p.ParsePosition(s);
-            break;
-        case ParseResult.INSTRUCTION:
-            r.TakeInstructions(p.ParseInstructions(s));
-            Console.WriteLine($"{r.Position.X} {r.Position.Y} {r.Position.Bearing.ToString()}");
-            break;
+        a.ParsePlateau();
+    }
+    else if(s is PositionParser b)
+    {
+        b.ParsePosition();
+    }
+    else if(s is InstructionParser c)
+    {
+        c.ParseInstructions();
     }
 }

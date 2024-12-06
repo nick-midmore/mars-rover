@@ -17,7 +17,7 @@ namespace MarsRoverTests
         {
             var parser = new InputParser();
 
-            Assert.That(parser.ParseInput(""), Is.EqualTo(ParseResult.INVALID));
+            Assert.That(parser.ParseInput(""), Is.EqualTo(null));
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace MarsRoverTests
         {
             var p = new InputParser();
 
-            p.ParseInput("hello").Should().Be(ParseResult.INVALID); 
+            p.ParseInput("hello").Should().Be(null); 
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace MarsRoverTests
         {
             var p = new InputParser();
 
-            p.ParseInput("1 2 N A").Should().Be(ParseResult.INVALID);
+            p.ParseInput("1 2 N A").Should().Be(null);
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace MarsRoverTests
         {
             var p = new InputParser();
 
-            p.ParseInput("5 ").Should().Be(ParseResult.INVALID);
+            p.ParseInput("5 ").Should().Be(null);
         }
 
         [Test]
@@ -49,9 +49,9 @@ namespace MarsRoverTests
         {
             var p = new InputParser();
 
-            p.ParseInput("5 6").Should().Be(ParseResult.PLATEAU);
-            p.ParseInput("8 16").Should().Be(ParseResult.PLATEAU);
-            p.ParseInput("25 16").Should().Be(ParseResult.PLATEAU);
+            p.ParseInput("5 6").Should().BeOfType<PlateauParser>();
+            p.ParseInput("8 16").Should().BeOfType<PlateauParser>();
+            p.ParseInput("25 16").Should().BeOfType<PlateauParser>();
 
         }
 
@@ -60,9 +60,9 @@ namespace MarsRoverTests
         {
             var p = new InputParser();
 
-            p.ParseInput("5 6 E").Should().Be(ParseResult.POSITION);
-            p.ParseInput("5 16 W").Should().Be(ParseResult.POSITION);
-            p.ParseInput("0 6 S").Should().Be(ParseResult.POSITION);
+            p.ParseInput("5 6 E").Should().BeOfType<PositionParser>();
+            p.ParseInput("5 16 W").Should().BeOfType<PositionParser>();
+            p.ParseInput("0 6 S").Should().BeOfType<PositionParser>();
         }
 
         [Test]
@@ -70,10 +70,10 @@ namespace MarsRoverTests
         {
             var p = new InputParser();
 
-            p.ParseInput("LMLRMMLMRLMRRMLR").Should().Be(ParseResult.INSTRUCTION);
-            p.ParseInput("LMRLMRLMRLRMLRM").Should().Be(ParseResult.INSTRUCTION);
-            p.ParseInput("RRRLRLRLRLMMMMLL").Should().Be(ParseResult.INSTRUCTION);
-            p.ParseInput("LLLLRRMRMRMMMMM").Should().Be(ParseResult.INSTRUCTION);
+            p.ParseInput("LMLRMMLMRLMRRMLR").Should().BeOfType<InstructionParser>();
+            p.ParseInput("LMRLMRLMRLRMLRM").Should().BeOfType<InstructionParser>();
+            p.ParseInput("RRRLRLRLRLMMMMLL").Should().BeOfType<InstructionParser>();
+            p.ParseInput("LLLLRRMRMRMMMMM").Should().BeOfType<InstructionParser>();
         }
     }
 }
