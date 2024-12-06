@@ -16,7 +16,7 @@ namespace MarsRoverTests
         }
 
         [Test]
-        public void Test1()
+        public void ReturnCorrectParserTest()
         {
             string[] input = 
             {
@@ -36,7 +36,18 @@ namespace MarsRoverTests
                 if(p.ParseInput(item) != null) ip.Add(p.ParseInput(item));
             }
 
-            ip[0].Should().BeEquivalentTo(new PlateauParser(new List<string>()));
+            ip[0].Should().BeOfType<PlateauParser>();
+            ip[1].Should().BeOfType<PositionParser>();
+            ip[2].Should().BeOfType<InstructionParser>();
+        }
+
+        [Test]
+        public void ReturnCorrectPlateauSizeTest()
+        {
+            var p = new InputParser();
+            (p.ParseInput("5 5") as PlateauParser).ParsePlateau();
+
+            Plateau.X.Should().Be(5);
         }
     }
 }

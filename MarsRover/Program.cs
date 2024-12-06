@@ -9,7 +9,6 @@ string[] input = {
 };
 
 var p = new InputParser();
-var r = new Rover(new Position(0, 0, Bearing.N));
 var parsers = new List<IParser>();
 
 foreach(var s in input)
@@ -25,10 +24,13 @@ foreach(var s in parsers)
     }
     else if(s is PositionParser b)
     {
-        b.ParsePosition();
+        Plateau.Rovers.Add(new Rover(b.ParsePosition()));
     }
     else if(s is InstructionParser c)
     {
-        c.ParseInstructions();
+        Plateau.Rovers[0].TakeInstructions(c.ParseInstructions());
     }
 }
+
+
+
